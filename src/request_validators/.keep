@@ -1,0 +1,59 @@
+// you can use any of the request parameters below
+const {
+  header,
+  cookie,
+  param,
+  body,
+  } = require('express-validator');
+
+// below is an example of how the request validator works
+module.exports = [
+  header('Authorization')
+    .trim(' ')
+    .notEmpty()
+    .withMessage('Error message')
+    .isJWT()
+    .withMessage('Error message')
+    .escape(),
+  cookie('resfreshToken')
+    .trim(' ')
+    .notEmpty()
+    .withMessage('Error message')
+    .isJWT()
+    .withMessage('Error message')
+    .escape(),
+  param('id')
+    .trim(' ')
+    .notEmpty()
+    .withMessage('Error message')
+    .isInt({ min: 0 })
+    .withMessage('Error message')
+    .escape(),
+  body('features')
+    .optional()
+    .toArray(),
+  body('features.*')
+    .if(body('features').not().isArray())
+    .toArray()
+    .if(body('features').isArray())
+    .trim(' ')
+    .notEmpty()
+    .withMessage('Don\'t submit an empty description')
+    .isLength({ max: 32 })
+    .withMessage('Too long')
+    .escape(),
+  body('email')
+    .trim(' ')
+    .notEmpty()
+    .withMessage('Input a user email')
+    .isEmail()
+    .withMessage('Input correct email address')
+    .normalizeEmail({ all_lowercase: true }),
+  body('phone')
+    .trim(' ')
+    .notEmpty()
+    .withMessage('Input a phone number into the phone number field')
+    .isMobilePhone('en-NG', { strictMode: true })
+    .withMessage('Input a standard phone number e.g +2348012345678')
+    .escape(),
+];

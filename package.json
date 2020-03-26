@@ -1,0 +1,70 @@
+{
+  "name": "klad-api",
+  "version": "1.0.0",
+  "description": "An API to locate and access service providers",
+  "main": "server.js",
+  "scripts": {
+    "coveralls": "nyc report --reporter=text-lcov | coveralls",
+    "db-delete": "sequelize db:migrate:undo:all --env production",
+    "db-delete:dev": "sequelize db:migrate:undo:all --env development",
+    "db-migrate": "sequelize db:migrate --env production",
+    "db-migrate:dev": "sequelize db:migrate --env development",
+    "db-migrate:test": "sequelize db:migrate:undo:all --env test && sequelize db:migrate --env test",
+    "db-migrate-seed:dev": "npm run db-migrate:dev && npm run db-seeder:dev",
+    "db-migrate-seed": "npm run db-migrate && npm run db-seeder",
+    "db-reset:dev": "npm run db-delete:dev && npm run db-migrate-seed:dev",
+    "db-reset:prod": "npm run db-delete && npm run db-migrate-seed",
+    "db-seeder": "sequelize db:seed:all --env production",
+    "db-seeder:dev": "sequelize db:seed:all --env development",
+    "db-seeder:test": "sequelize db:seed:all --env test",
+    "dev": "nodemon server.js",
+    "lint": "eslint src/**/*.js",
+    "test": "npm run db-migrate:test && npm run db-seeder:test && nyc --reporter=html --reporter=text mocha --recursive tests/ --timeout 60000 --exit",
+    "test:dev": "SET NODE_ENV=test && npm run test",
+    "test:coverage": "npm test && npm run coveralls"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Adeniyi-Kale-clan/service-provider-locator-api-nodejs"
+  },
+  "keywords": [
+    "services"
+  ],
+  "author": [
+    "Akanji Oluwatobiloba Seun",
+    "Nwakasi Stephen Ifeanyi",
+    "Michael Ojo",
+    "Emmanuel Olufemi"
+  ],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Adeniyi-Kale-clan/service-provider-locator-api-nodejs/issues"
+  },
+  "homepage": "https://github.com/Adeniyi-Kale-clan/service-provider-locator-api-nodejs#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "chai": "^4.2.0",
+    "cloudinary": "^1.19.0",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "datauri": "^2.0.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-validator": "^6.3.0",
+    "jsonwebtoken": "^8.5.1",
+    "mocha": "^7.1.1",
+    "mocha-lcov-reporter": "^1.3.0",
+    "morgan": "^1.9.1",
+    "multer": "^1.4.2",
+    "nyc": "^15.0.0",
+    "pg": "^7.18.2",
+    "sequelize": "^5.21.5",
+    "sequelize-cli": "^5.5.1",
+    "sinon": "^9.0.1"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.1"
+  }
+}
