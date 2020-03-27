@@ -1,0 +1,12 @@
+const express = require('express');
+// require your validator
+// require your controller
+
+const router = express.Router();
+
+/*
+* call your route method and arguments here e.g.
+* router.post('route', validator, controller);
+*/
+
+module.exports = router;
